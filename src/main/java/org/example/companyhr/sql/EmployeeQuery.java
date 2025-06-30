@@ -27,20 +27,14 @@ public enum EmployeeQuery {
     /**
      * Employees earning above department average using correlated subquery.
      * */
-    EMPLOYEES_ABOVE_DEPARTMENT_AVG("SELECT * FROM employees e" +
-            "WHERE salary > " +
-            "(SELECT AVG(salary) FROM employees WHERE department = e.department"),
+    EMPLOYEES_ABOVE_DEPARTMENT_AVG("SELECT * FROM employees e WHERE salary > (SELECT AVG(salary) FROM employees WHERE department = e.department)"),
 
 
     /**
      * Employee ranking by salary within the department using window functions.
      */
 
-    EMPLOYEE_RANKING(
-                "SELECT id, name, department, salary," +
-                    "RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS dept_rank" +
-                    "FROM employees"
-    );
+    EMPLOYEE_RANKING("SELECT id, name, department, salary, RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS dept_rank FROM employees");
     /**
      * ✅ What is a window function?
      * A window function computes a value across a set of rows related to the current row.

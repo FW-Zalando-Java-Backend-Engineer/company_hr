@@ -47,9 +47,10 @@ public class EmployeeRepositoryImpl implements EmployeeRepositoryCustom{
      */
     private void setParameters(Query nativeQuery, Object...params) {
         if (params != null){
-            for (int i = 0; i < params.length; i++){
-                nativeQuery.setParameter(i+1, params[i+1]);
+            for (int i = 0; i < params.length; i++) {
+                nativeQuery.setParameter(i + 1, params[i]);
             }
+
         }
     }
 

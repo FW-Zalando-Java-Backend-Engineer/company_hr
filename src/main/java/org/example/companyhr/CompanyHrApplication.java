@@ -5,6 +5,7 @@ import org.example.companyhr.repo.EmployeeRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 
 /**
  * Main Spring Boot application for Company HR SQL Demo.
@@ -16,8 +17,9 @@ public class CompanyHrApplication {
     }
 
     /**
-     * Seeds the database with sample employees.
+     * Seeds the database with sample employees at startup.
      */
+    @Bean
     CommandLineRunner init(EmployeeRepository repo) {
         return args -> {
             repo.save(new Employee("Alice Smith", "HR", 50000.0));

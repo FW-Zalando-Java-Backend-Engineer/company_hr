@@ -29,7 +29,32 @@ public enum EmployeeQuery {
      * */
     EMPLOYEES_ABOVE_DEPARTMENT_AVG("SELECT * FROM employees e" +
             "WHERE salary > " +
-            "(SELECT AVG(salary) FROM employees WHERE department = e.department");
+            "(SELECT AVG(salary) FROM employees WHERE department = e.department"),
+
+
+    /**
+     * Employee ranking by salary within the department using window functions.
+     */
+
+    EMPLOYEE_RANKING(
+                "SELECT id, name, department, salary," +
+                    "RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS dept_rank" +
+                    "FROM employees"
+    );
+    /**
+     * ✅ What is a window function?
+     * A window function computes a value across a set of rows related to the current row.
+     *--
+     * ✅ Unlike GROUP BY, it doesn't reduce the number of rows.
+     * ✅ It adds extra info (like rank, average, sum) to each row.
+     * --
+     * RANK() is a window function: It assigns a ranking number '1 for highest', '2 for next highest', ...etc.
+     * OVER (...) defines how to calculate the rank.
+     * PARTITION BY department: Divide the table into groups based on department.
+     * ORDER BY salary DESC: Within each department, sort employees by salary, highest first.
+     * DESC: descending order.
+     * The result set will include a column called dept_rank.
+     * */
 
     // Field to Hold the SQL String
     private final String sql;
